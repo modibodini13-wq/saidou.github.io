@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Sora:wght@400;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --panel: #131a23;
+    --border: #22303f;
+    --accent: #39ff88;
+    --accent-dim: #1f8f52;
+    --text: #e6edf3;
+    --text-dim: #8ba0b3;
+    --error: #ff6b6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      linear-gradient(rgba(57,255,136,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,136,0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 40px 36px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--accent-dim));
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  form { display: flex; flex-direction: column; gap: 18px; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+
+  label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  input {
+    background: #0a0f14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 14px;
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  input::placeholder { color: #4a5a68; }
+
+  input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(57,255,136,0.15);
+  }
+
+  input:invalid:not(:placeholder-shown) {
+    border-color: var(--error);
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  button {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.1s ease, filter 0.15s ease;
+  }
+
+  button:active { transform: scale(0.98); }
+
+  .btn-validate {
+    background: var(--accent);
+    color: #0a0f14;
+  }
+
+  .btn-validate:hover { filter: brightness(1.1); }
+
+  .btn-save {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  .btn-save:hover { border-color: var(--accent); color: var(--accent); }
+
+  .status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 4px;
+    min-height: 16px;
+  }
+
+  .status.success { color: var(--accent); }
+
+  @media (max-width: 420px) {
+    .card { padding: 32px 22px 26px; }
+    h1 { font-size: 25px; }
+    .actions { flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="eyebrow">Vitrine 5 — Formation Tech</div>
+  <h1>Inscri<span>ption</span></h1>
+  <p class="subtitle">Renseignez vos informations pour rejoindre la formation des vacances.</p>
+
+  <form id="inscriptionForm" autocomplete="off">
+    <div class="field">
+      <label for="nom">Nom</label>
+      <input type="text" id="nom" name="nom" placeholder="Aboul Fathi" required>
+    </div>
+
+    <div class="field">
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" name="prenom" placeholder="Saidou" required>
+    </div>
+
+    <div class="field">
+      <label for="telephone">Téléphone</label>
+      <input type="tel" id="telephone" name="telephone" placeholder="00237674636976" pattern="[0-9]{8,15}" required>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-validate">Valider</button>
+      <button type="button" class="btn-save" id="saveBtn">Enregistrer</button>
+    </div>
+
+    <p class="status" id="statusMsg"></p>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('inscriptionForm');
+  const statusMsg = document.getElementById('statusMsg');
+  const saveBtn = document.getElementById('saveBtn');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      statusMsg.textContent = "Veuillez remplir correctement tous les champs.";
+      statusMsg.classList.remove('success');
+      return;
+    }
+    statusMsg.textContent = "Inscription validée.";
+    statusMsg.classList.add('success');
+  });
+
+  saveBtn.addEventListener('click', function () {
+    if (!form.checkValidity()) {
+      statusMsg.textContent = "Veuillez remplir correctement tous les champs avant d'enregistrer.";
+      statusMsg.classList.remove('success');
+      form.reportValidity();
+      return;
+    }
+    const data = {
+      nom: document.getElementById('nom').value,
+      prenom: document.getElementById('prenom').value,
+      telephone: document.getElementById('telephone').value
+    };
+    console.log('Données à enregistrer :', data);
+    statusMsg.textContent = "Données enregistrées.";
+    statusMsg.classList.add('success');
+  });
+</script>
+
+</body>
+</html>
